@@ -23,18 +23,18 @@
 (setq org-todo-keywords
       '((sequence
          "TODO(t)"
-         "NEXT(n)"
          "STARTED(s)"
+         "DELEGATED(g)"
          "WAITING(w@/!)"
          "SOMEDAY(.)"
          "|"
-         "DONE(d!)"
+         "DONE(d@!)"
          "CANCELED(c@/!)")))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "indian red" :weight bold)
-              ("NEXT" :foreground "dark salmon" :weight bold)
               ("STARTED" :foreground "cornflower blue" :weight bold)
+              ("DELEGATED" :foreground "dark salmon" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "plum" :weight bold)
               ("SOMEDAY" :foreground "dark khaki" :weight bold)
@@ -219,6 +219,22 @@
         (todo priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep))))
+
+
+(setq xt-default-notes-file (concat org-directory "/notes.org"))
+
+(setq org-capture-templates
+      (quote (("t" "Todo" entry (file xt-default-notes-file)
+               "* TODO %?\n  OPENED: %U\n %i")
+              ("n" "Note" entry (file xt-default-notes-file)
+               "* %?\n  OPENED: %U\n %i")
+              ("j" "Journal" entry (file xt-default-notes-file)
+               "* %?\n  OPENED: %U\n %i")
+              ("h" "Habit" entry (file xt-default-notes-file)
+               "* TODO %?\n  SCHEDULED: %t\n  OPENED: %U\n  :PROPERTIES:\n  :STYLE: habit\n  :END:\n  %i"))))
+
+
+(global-set-key (kbd "C-c c") 'org-capture)
 
 (provide 'xt-org)
 

@@ -15,16 +15,8 @@
     (set-face-font 'default "Source Code Pro-12")
   (set-face-font 'default "Monospace-10"))
 
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
 ;; Auto hide the menu bar
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;; Disable guru mode
-(setq prelude-guru nil)
 
 (when (eq system-type 'darwin)
   (progn
@@ -62,10 +54,8 @@
     ;; what describe-key reports for cmd-option-h
     (global-set-key (kbd "M-ˍ") 'ns-do-hide-others)))
 
-;; Allow access from emacsclient
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+;;(sleep-for 1)
+;;(toggle-frame-fullscreen)
 
 
 (provide 'xt-ui)

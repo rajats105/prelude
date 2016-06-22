@@ -21,3 +21,7 @@ session*
 .cask
 tramp
 /var/pcache
+anaconda-mode/*
+geben/*
+.org-id-locations
+personal/xt-secret.el
