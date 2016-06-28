@@ -22,6 +22,8 @@
 (prelude-require-package 'rainbow-identifiers)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
+(prelude-require-package 'indent-guide)
+(add-hook 'prog-mode-hook 'indent-guide-mode)
 
 ;; (global-set-key (kbd "C-q") 'isearch-forward-symbol-at-point)
 
