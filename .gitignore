@@ -25,3 +25,4 @@ anaconda-mode/*
 geben/*
 .org-id-locations
 personal/xt-secret.el
+.mc-lists.el

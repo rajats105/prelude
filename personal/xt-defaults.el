@@ -22,8 +22,13 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Moving-Point.html
 (setq line-move-visual nil)
 
-
 (prelude-require-package 'paradox)
+
+;; Most important functions I use
+(key-chord-define-global "BB" 'helm-mini)
+(key-chord-define-global "FF" 'helm-projectile-find-file)
+(key-chord-define-global "GG" 'helm-projectile-ag)
+(key-chord-define-global "II" 'helm-semantic-or-imenu)
 
 
 ;; Allow access from emacsclient

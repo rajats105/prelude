@@ -13,6 +13,9 @@
 (setq flycheck-phpmd-rulesets '())
 (add-to-list 'flycheck-phpmd-rulesets (expand-file-name "~/.emacs.d/personal/misc/php/phpmd.xml"))
 
+(prelude-require-package 'dumb-jump)
+(require 'dumb-jump)
+
 (add-hook 'php-mode-hook 'dumb-jump-mode)
 
 (provide 'xt-php)
