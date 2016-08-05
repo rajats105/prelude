@@ -16,6 +16,17 @@
 (prelude-require-package 'dumb-jump)
 (require 'dumb-jump)
 
-(add-hook 'php-mode-hook 'dumb-jump-mode)
+(prelude-require-package 'company-php)
+(require 'company-php)
+
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (require 'company-php)
+             (company-mode t)
+             (add-to-list 'company-backends 'company-ac-php-backend )
+             (define-key php-mode-map  (kbd "M-.") 'ac-php-find-symbol-at-point)
+             (define-key php-mode-map  (kbd "M-,") 'ac-php-location-stack-back)))
+
+;; (add-hook 'php-mode-hook 'dumb-jump-mode)
 
 (provide 'xt-php)

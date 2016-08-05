@@ -1,7 +1,3 @@
-(setq python-indent 4)
-
-(setq c-basic-offset 4)
-
 (setq python-indent-guess-indent-offset nil)
 
 ;; (prelude-require-package 'py-yapf)

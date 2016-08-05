@@ -57,6 +57,7 @@
 ;;(sleep-for 1)
 ;;(toggle-frame-fullscreen)
 
+;; (prelude-require-package 'leuven-theme)
 
 (provide 'xt-ui)
 
