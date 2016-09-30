@@ -52,7 +52,6 @@
 (prelude-require-package 'helm-swoop)
 
 (prelude-require-package 'restclient)
-
 (prelude-require-package 'know-your-http-well)
 
 (setq-default indent-tabs-mode nil)
@@ -69,6 +68,9 @@
   (newline-and-indent))
 
 (global-set-key (kbd "M-RET") 'newline-for-code)
+
+;; Clojure indentation
+(setq clojure-indent-style :always-indent)
 
 
 (provide 'xt-programming)

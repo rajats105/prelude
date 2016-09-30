@@ -22,7 +22,11 @@
 
 ;; Cleaner view ;;
 (setq org-hide-leading-stars t)
+(setq org-hide-emphasis-markers t)
 (setq org-odd-levels-only t)
+
+(prelude-require-package 'org-bullets)
+(add-hook 'org-mode-hook 'org-bullets-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,13 +35,22 @@
 (setq org-directory "~/rajat/org")
 (setq org-todo-directory (concat org-directory "/todo"))
 (setq org-note-directory (concat org-directory "/note"))
+(setq org-journal-directory (concat org-directory "/journal"))
 
-(setq org-agenda-files (list (concat org-todo-directory "/work.org")
-                             (concat org-todo-directory "/personal.org")
-                             (concat org-todo-directory "/calendar.org")))
-(setq org-default-notes-file (concat org-note-directory "/notes.org"))
+(setq xt-todo-work-file (concat org-todo-directory "/work.org"))
+(setq xt-todo-personal-file (concat org-todo-directory "/personal.org"))
+
+(setq xt-calendar-file (concat org-todo-directory "/calendar.org"))
+(setq xt-note-file (concat org-note-directory "/note.org"))
 (setq xt-refile-file (concat org-todo-directory "/refile.org"))
-(setq xt-journal-file (concat org-todo-directory "/journal.org"))
+(setq xt-journal-file (concat org-journal-directory "/journal.org"))
+
+
+(setq org-default-notes-file xt-note-file)
+
+(setq org-agenda-files (list xt-todo-work-file
+                             xt-todo-personal-file
+                             xt-calendar-file))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -46,34 +59,28 @@
 (setq org-todo-keywords
       '((sequence
          "TODO(t)"
-         "STARTED(s)"
-         "DELEGATED(g)"
+         "PROJECT(p)"
+         "QUERY(q)"
+         "IDEA(i)"
          "WAITING(w@/!)"
-         "SOMEDAY(.)"
          "|"
          "DONE(d!)"
          "CANCELED(c@/!)")))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "indian red" :weight bold)
-              ("STARTED" :foreground "cornflower blue" :weight bold)
-              ("DELEGATED" :foreground "dark salmon" :weight bold)
+              ("PROJECT" :foreground "dark khaki" :weight bold)
+              ("IDEA" :foreground "cornflower blue" :weight bold)
+              ("QUERY" :foreground "dark salmon" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "plum" :weight bold)
-              ("SOMEDAY" :foreground "dark khaki" :weight bold)
               ("CANCELED" :foreground "forest green" :weight bold))))
 
 (setq org-tag-alist '(("PROJECT" . ?p)
-                      ("READING" . ?r)
-                      ("JENN" . ?j)
                       ("QUESTION" . ?q)
                       ("OBSERVATION" . ?o)
                       ("IDEA" . ?i)
-                      ("BUY" . ?y)
-                      ("MEETING" . ?m)
-                      ("PHONE" . ?h)
-                      ("TaskBucket" . ?B)
-                      ("brainstorm" . ?b)))
+                      ("MEETING" . ?m)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -96,17 +103,20 @@
 (setq org-agenda-span (quote fortnight))
 ;;(setq org-agenda-span 2)
 
+;; https://github.com/jwiegley/newartisans/blob/master/posts/2007-08-20-using-org-mode-as-a-day-planner.md
+(setq org-agenda-start-on-weekday nil)
+(setq org-agenda-show-all-dates t)
+
 (setq org-agenda-skip-scheduled-if-done t) ;; Scheduled done items should be skipped.
 (setq org-agenda-skip-deadline-if-done t)  ;; Deadline tasks done should be skipped.
-(setq org-agenda-skip-timestamp-if-done t) ;; Entries with any timestamp, appointments just like scheduled and deadline entries.
+(setq org-agenda-skip-timestamp-if-done nil) ;; Entries with any timestamp, appointments just like scheduled and deadline entries.
 
 (setq org-agenda-todo-ignore-deadlines t) ;; Don't show deadline tasks in global TODO list.
 (setq org-agenda-todo-ignore-with-date t) ;; Don't show any tasks with a date in the global TODO list.
 (setq org-agenda-todo-ignore-scheduled t) ;; Don't show scheduled tasks in the global TODO list.
 
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t) ;; Don't show tasks as scheduled if they are already shown as a deadline
-
-(setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)) ;; Don't give awarning colour to tasks with impending deadlines if they are scheduled to be done
+(setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)) ;; Don't give a warning colour to tasks with impending deadlines if they are scheduled to be done
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -130,6 +140,33 @@
         (tags priority-down category-keep)
         (search category-keep))))
 
+;; http://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html
+(setq org-agenda-text-search-extra-files '(agenda-archives))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Refile
+
+;; http://doc.norang.ca/org-mode.html
+; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 1))))
+
+; Use full outline paths for refile targets - we file directly with IDO
+(setq org-refile-use-outline-path t)
+
+; Targets complete directly with IDO
+(setq org-outline-path-complete-in-steps nil)
+
+; Allow refile to create parent tasks with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+;;;; Refile settings
+; Exclude DONE state tasks from refile targets
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
@@ -164,11 +201,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clock
 
-(setq org-log-into-drawer "LOGBOOK")
 (setq org-clock-into-drawer t)
 
 (setq org-clock-idle-time nil)
-(setq org-log-done 'note)
+
+;; Copied from https://github.com/aaronbieber/dotfiles/blob/master/configs/emacs.d/lisp/init-org.el
+(setq org-log-into-drawer "LOGBOOK")
+(setq org-log-done (quote time))
+(setq org-log-redeadline (quote time))
+(setq org-log-reschedule (quote time))
+
+(setq org-ellipsis " …")
+
 (setq org-clock-continuously nil)
 (setq org-clock-persist t) ;; Persist clock data
 (setq org-clock-in-switch-to-state "STARTED")
@@ -179,251 +223,145 @@
 (setq org-clock-out-remove-zero-time-clocks t)
 (setq org-clock-out-when-done t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Agenda custom commands
-
-(setq org-agenda-custom-commands
-      '(("d" todo "DELEGATED" nil)
-        ("w" todo "WAITING" nil)
-        ("P" "Project List"
-         ((tags "PROJECT")))
-        ("O" "Office"
-         ((agenda)
-          (tags-todo "OFFICE")))
-        ("W" "Weekly Plan"
-         ((agenda)
-          (todo "TODO")
-           (tags "PROJECT")))
-        ("H" "Home NA Lists"
-         ((agenda)
-           (tags-todo "HOME")
-           (tags-todo "COMPUTER")))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org capture templates
 
+;; Copied from
+;; https://github.com/jwiegley/dot-emacs/blob/f9d7e331dd8a6048af3c5ac88fea092b86da7ac5/org-settings.el
 (setq org-capture-templates
-      '(("j" "Journal Entry" plain
-         (file+datetree xt-journal-file)
-         "%U\n\n%?" :empty-lines-before 1)
-        ("w" "Log Work Task" entry
-         (file+datetree xt-worklog-file)
-         "* TODO %^{Description}  %^g\n%?\n\nAdded: %U"
-         :clock-in t
-         :clock-keep t)))
-
-(defvar my/org-basic-task-template "* TODO %^{Task}
-:PROPERTIES:
-:Effort: %^{effort|1:00|0:05|0:15|0:30|2:00|4:00}
-:END:
-Captured %<%Y-%m-%d %H:%M>
-%?
-
-%i
-" "Basic task data")
-
-(setq org-capture-templates
-      `(("t" "Tasks" entry
-         (file+headline "~/personal/organizer.org" "Inbox")
-         ,my/org-basic-task-template)
-        ("T" "Quick task" entry
-         (file+headline "~/personal/organizer.org" "Inbox")
-         "* TODO %^{Task}\nSCHEDULED: %t\n"
-         :immediate-finish t)
-        ("i" "Interrupting task" entry
-         (file+headline "~/personal/organizer.org" "Inbox")
-         "* STARTED %^{Task}"
-         :clock-in :clock-resume)
-        ("e" "Emacs idea" entry
-         (file+headline "~/code/emacs-notes/tasks.org" "Emacs")
-         "* TODO %^{Task}"
-         :immediate-finish t)
-        ("E" "Energy" table-line
-         (file+headline "~/personal/organizer.org" "Track energy")
-         "| %U | %^{Energy 5-awesome 3-fuzzy 1-zzz} | %^{Note} |"
-         :immediate-finish t
-         )
-        ("b" "Business task" entry
-         (file+headline "~/personal/business.org" "Tasks")
-         ,my/org-basic-task-template)
-        ("p" "People task" entry
-         (file+headline "~/personal/people.org" "Tasks")
-         ,my/org-basic-task-template)
-        ("j" "Journal entry" plain
-         (file+datetree "~/personal/journal.org")
-         "%K - %a\n%i\n%?\n"
-         :unnarrowed t)
-        ("J" "Journal entry with date" plain
-         (file+datetree+prompt "~/personal/journal.org")
-         "%K - %a\n%i\n%?\n"
-         :unnarrowed t)
-        ("s" "Journal entry with date, scheduled" entry
-         (file+datetree+prompt "~/personal/journal.org")
-         "* \n%K - %a\n%t\t%i\n%?\n"
-         :unnarrowed t)
-        ("c" "Protocol Link" entry (file+headline ,org-default-notes-file "Inbox")
-         "* [[%:link][%:description]] \n\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n%?\n\nCaptured: %U")
-        ("db" "Done - Business" entry
-         (file+headline "~/personal/business.org" "Tasks")
-         "* DONE %^{Task}\nSCHEDULED: %^t\n%?")
-        ("dp" "Done - People" entry
-         (file+headline "~/personal/people.org" "Tasks")
-         "* DONE %^{Task}\nSCHEDULED: %^t\n%?")
-        ("dt" "Done - Task" entry
-         (file+headline "~/personal/organizer.org" "Inbox")
-         "* DONE %^{Task}\nSCHEDULED: %^t\n%?")
-        ("q" "Quick note" item
-         (file+headline "~/personal/organizer.org" "Quick notes"))
-        ("l" "Ledger entries")
-        ("lm" "MBNA" plain
-         (file "~/personal/ledger")
-         "%(org-read-date) %^{Payee}
-    Liabilities:MBNA
-    Expenses:%^{Account}  $%^{Amount}
-  " :immediate-finish t)
-        ("ln" "No Frills" plain
-         (file "~/personal/ledger")
-         "%(let ((org-read-date-prefer-future nil)) (org-read-date)) * No Frills
-    Liabilities:MBNA
-    Assets:Wayne:Groceries  $%^{Amount}
-  " :immediate-finish t)
-        ("lc" "Cash" plain
-         (file "~/personal/ledger")
-         "%(org-read-date) * %^{Payee}
-    Expenses:Cash
-    Expenses:%^{Account}  %^{Amount}
-  ")
-        ("B" "Book" entry
-         (file+datetree "~/personal/books.org" "Inbox")
-         "* %^{Title}  %^g
-  %i
-  *Author(s):* %^{Author} \\\\
-  *ISBN:* %^{ISBN}
-
-  %?
-
-  *Review on:* %^t \\
-  %a
-  %U"
-         :clock-in :clock-resume)
-        ("C" "Contact" entry (file "~/personal/contacts.org")
-         "* %(org-contacts-template-name)
+      (quote
+       (("w" "Work: add task" entry
+         (file+headline xt-todo-work-file "Inbox")
+         "* TODO %?
+  SCHEDULED: %t
   :PROPERTIES:
-  :EMAIL: %(my/org-contacts-template-email)
-  :END:")
-        ("n" "Daily note" table-line (file+olp "~/personal/organizer.org" "Inbox")
-         "| %u | %^{Note} |"
-         :immediate-finish t)
-        ("r" "Notes" entry
-         (file+datetree "~/personal/organizer.org")
-         "* %?\n\n%i\n"
-         )))
+  :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+  :END:" :prepend t)
+        ("p" "Personal: add task" entry
+         (file+headline xt-todo-personal-file "Inbox")
+         "* TODO %?
+  SCHEDULED: %t
+  :PROPERTIES:
+  :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+  :END:" :prepend t)
+        ("n" "Note" entry
+         (file xt-note-file)
+         "* NOTE %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+:END:" :prepend t)
+        ("c" "Calendar" entry
+         (file+headline "~/rajat/org/todo/calendar.org" "Inbox")
+         "* TODO %?
+  SCHEDULED: %t
+  :PROPERTIES:
+  :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+  :END:" :prepend t)
+        ("j" "Journal Entry"
+         entry (file+datetree xt-journal-file)
+         "* %?")
+        ("l" "Worklog entry"
+         entry (file+datetree xt-work-logbook-file)
+         "* %?"))))
 
 
-(setq org-capture-templates
-      (quote (("t" "Todo" entry (file+headline xt-refile-file "To Do")
-               "* TODO %?\n  OPENED: %U\n %i")
-              ("n" "Note" entry (file xt-refile-file)
-               "* %?\n  OPENED: %U\n %i")
-              ("j" "Journal"
-               entry (file+datetree xt-journal-file)
-               "* %?"
-               :empty-lines 1)
-              ("l" "Logbook" entry (file+datetree xt-work-logbook-file) "** %U - %^{Activity}  :LOG:"))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Agenda custom commands
 
-;; https://aws.amazon.com/new/feed/
-(setq org-feed-alist
-      '(("Slashdot"
-         "http://rss.slashdot.org/Slashdot/slashdot"
-         "~/feeds.org" "Slashdot Entries")
-        ("AWS"
-         "https://aws.amazon.com/new/feed/"
-         "~/feeds.org" "AWS entries")))
+(setq org-agenda-custom-commands
+   (quote
+    (("e" "Emacs Tasks" tags "TODO<>\"PROJECT\"&LEVEL<>1"
+      ((org-agenda-overriding-header "Emacs Tasks")
+       (org-agenda-files
+        (quote
+         ("~/doc/tasks/emacs.txt")))))
+     ("h" "Current Hotlist" tags "HOT&TODO=\"PROJECT\""
+      ((org-agenda-overriding-header "Current Hotlist")))
+     ("H" "Non-Hot Projects" tags "-HOT&TODO=\"PROJECT\""
+      ((org-agenda-overriding-header "Non-Hot Projects")))
+     ("A" "Priority #A tasks" agenda ""
+      ((org-agenda-ndays 1)
+       (org-agenda-overriding-header "Today's priority #A tasks: ")
+       (org-agenda-skip-function
+        (quote
+         (org-agenda-skip-entry-if
+          (quote notregexp)
+          "\\=.*\\[#A\\]")))))
+     ("b" "Priority #A and #B tasks" agenda ""
+      ((org-agenda-ndays 1)
+       (org-agenda-overriding-header "Today's priority #A and #B tasks: ")
+       (org-agenda-skip-function
+        (quote
+         (org-agenda-skip-entry-if
+          (quote regexp)
+          "\\=.*\\[#C\\]")))))
+     ("r" "Uncategorized items" tags "CATEGORY=\"Inbox\"&LEVEL=2"
+      ((org-agenda-overriding-header "Uncategorized items")))
+     ("W" "Waiting/delegated tasks" tags "TODO=\"WAITING\"|TODO=\"DELEGATED\""
+      ((org-agenda-overriding-header "Waiting/delegated tasks:")
+       (org-agenda-sorting-strategy
+        (quote
+         (todo-state-up priority-down category-up)))))
+     ("u" "Unscheduled tasks" tags "TODO<>\"\"&TODO<>{DONE\\|CANCELED\\|NOTE\\|PROJECT}&CATEGORY<>{Assembly}"
+      ((org-agenda-overriding-header "Unscheduled tasks: ")
+       (org-agenda-skip-function
+        (quote
+         (org-agenda-skip-entry-if
+          (quote scheduled)
+          (quote deadline)
+          (quote timestamp)
+          (quote regexp)
+          "\\* \\(DEFERRED\\|SOMEDAY\\)")))
+       (org-agenda-sorting-strategy
+        (quote
+         (priority-down)))))
+     ("U" "Deferred tasks" tags "TODO=\"DEFERRED\""
+      ((org-agenda-files
+        (quote
+         ("~/doc/tasks/todo.txt")))
+       (org-agenda-overriding-header "Deferred tasks:")))
+     ("Y" "Someday tasks" tags "TODO=\"SOMEDAY\""
+      ((org-agenda-overriding-header "Someday tasks:")))
+     ("w" "Unscheduled work-related tasks" tags "TODO<>\"\"&TODO<>{DONE\\|CANCELED\\|NOTE\\|PROJECT}"
+      ((org-agenda-overriding-header "Unscheduled work-related tasks")
+       (org-agenda-files
+        (quote
+         ("~/doc/tasks/BAE.txt")))
+       (org-agenda-sorting-strategy
+        (quote
+         (todo-state-up priority-down category-up)))
+       (org-agenda-skip-function
+        (quote
+         (org-agenda-skip-entry-if
+          (quote scheduled)
+          (quote deadline)
+          (quote timestamp))))))
+     ("S" "Assembly Action Items" tags-todo "TODO<>\"PROJECT\""
+      ((org-agenda-files
+        (quote
+         ("~/doc/tasks/assembly.txt")))
+       (org-agenda-overriding-header "Assembly Action Items")
+       (org-agenda-sorting-strategy
+        (quote
+         (alpha-up time-up)))))
+     ("c" "Appointment Calendar" agenda ""
+      ((org-agenda-overriding-header "Appointment Calendar")
+       (org-agenda-sorting-strategy
+        (quote
+         (time-up)))
+       (org-agenda-span 14)
+       (org-agenda-ndays 14)
+       (org-agenda-regexp-filter-preset
+        (quote
+         ("+APPT")))))
+     ("Z" "MobileOrg Tasks" agenda ""
+      ((org-agenda-overriding-header "MobileOrg Tasks")
+       (org-agenda-span 14)
+       (org-agenda-ndays 14))))))
 
 
-
-
-
-(prelude-require-packages '(elfeed elfeed-org elfeed-web))
-
-(setq elfeed-feeds
-      '("http://rss.slashdot.org/Slashdot/slashdot"
-        "https://aws.amazon.com/new/feed/"
-        "https://8thlight.com/blog/feed/atom.xml"
-        "http://feeds.feedburner.com/codinghorror?format=xml"
-        "http://www.joelonsoftware.com/rss.xml"
-        "http://feeds.feedburner.com/HighScalability?format=xml"
-        "http://nerds.airbnb.com/feed/"
-        "http://allegro.tech/feed.xml"
-        "http://autodeskcloudengineering.typepad.com/blog/atom.xml"
-        "http://feeds.feedburner.com/AmazonWebServicesBlog?format=xml"
-        "http://nullprogram.com/feed/"
-        "http://www.bigeng.io/rss/"
-        "http://benchling.engineering/rss/"
-        "http://word.bitly.com/rss"
-        "http://engineering.bittorrent.com/feed/"
-        "http://rockthecode.io/feed/"
-        "http://engineering.bloomreach.com/feed/"
-        "https://blog.box.com/blog/feed/"
-        "http://engineering.brandwatch.com/rss/"
-        "https://www.ctl.io/developers/blog/rss"
-        "https://blog.chaps.io/feed.xml"
-        "https://www.digitalocean.com/community/tutorials/feed"
-        "https://blog.docker.com/feed/"
-        "https://blogs.dropbox.com/tech/feed/"
-        "http://engineering.dailymotion.com/rss/"
-        "http://research.baidu.com/feed/"
-        "http://research.baidu.com/category/baidutechblog/baidu-research-technology/feed/"
-        "http://www.ebaytechblog.com/feed/"
-        "https://medium.com/feed/unexpected-token"
-        "https://blog.engineyard.com/rss.xml"
-        "http://webuild.envato.com/atom.xml"
-        "https://codeascraft.com/feed/"
-        "https://www.eventbrite.com/engineering/feed/"
-        "https://blog.evernote.com/feed/"
-        "https://evilmartians.com/chronicles.atom"
-        "https://blog.chef.io/feed/"
-        "http://engineering.cerner.com/atom.xml"
-        "http://blog.codeship.com/feed/"
-        "https://blog.asana.com/feed/"
-        "http://nerds.airbnb.com/feed/"
-        "https://code.facebook.com/posts/rss"
-        "http://tech.finn.no/atom.xml"
-        "http://making.fiftythree.com/feed.xml"
-        "http://code.flickr.net/feed/"
-        "http://engineering.flipboard.com/feed.xml"
-        "http://tech-blog.flipkart.net/feed/"
-        "http://engineering.foursquare.com/feed/"
-        "https://engineering.fundingcircle.com/feed.xml"
-        "https://www.future-processing.pl/feed/?post_type=post"
-        "https://galois.com/blog/feed/"
-        "http://tech.gc.com/atom.xml"
-        "http://tech.gilt.com/atom.xml"
-        "http://githubengineering.com/atom.xml"
-        "https://github.com/blog.atom"
-        "https://engineering.gnip.com/feed/"
-        "https://gocardless.com/blog/atom.xml"
-        "https://engineering.gnip.com/feed/"
-        "http://bites.goodeggs.com/rss"
-        "http://googleresearch.blogspot.com/atom.xml"
-        "https://googleonlinesecurity.blogspot.com/atom.xml"
-        "https://engineering.gosquared.com/feed"
-        "https://tech.grammarly.com/blog/rss.xml"
-        "http://eng.joingrouper.com/atom.xml"
-        "https://engineering.groupon.com/feed/"
-        "https://www.theguardian.com/info/developer-blog/rss"
-        "http://engineering.gusto.com/rss/"
-        "http://engineering.harrys.com/feed.xml"
-        "http://feeds.feedburner.com/hashrocket-blog"
-        "http://engineering.heroku.com/feed.xml"
-        "http://code.hireart.com/feed.xml"
-        "http://blog.honeybadger.io/feed.xml"
-        "http://code.hootsuite.com/feed/"
-        "http://product.hubspot.com/blog/rss.xml"
-        "http://tldr.huddle.com/atom.xml"
-        "http://engineering.ifttt.com/feed.xml"))
+(prelude-require-package 'htmlize)
 
 (provide 'xt-org)
-
 ;;; xt-org.el ends here
