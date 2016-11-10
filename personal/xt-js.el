@@ -13,10 +13,19 @@
 (setq-default js-auto-indent-flag nil
               js-indent-level 2)
 
+(setq js-indent-level 2)
+(setq-default js2-basic-offset 2)
+
+(setq js2-strict-missing-semi-warning nil)
+(setq js2-missing-semi-one-line-override t)
+
 (setq inferior-js-program-command "node")
 
 (prelude-require-package 'tern)
 (require 'tern)
+
+(prelude-require-package 'pug-mode)
+(require 'pug-mode)
 
 (prelude-require-package 'company-tern)
 (require 'company-tern)

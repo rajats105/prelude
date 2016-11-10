@@ -72,5 +72,7 @@
 ;; Clojure indentation
 (setq clojure-indent-style :always-indent)
 
+;; http://emacs.stackexchange.com/questions/3458/how-to-switch-between-windows-quickly
+(windmove-default-keybindings)
 
 (provide 'xt-programming)
