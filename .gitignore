@@ -27,3 +27,6 @@ geben/*
 personal/xt-secret.el
 .mc-lists.el
 games/*
+.emacs.desktop
+.emacs.desktop.lock
+
