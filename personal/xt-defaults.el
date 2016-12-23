@@ -14,6 +14,11 @@
 (setq helm-mode-fuzzy-match t)
 (setq helm-completion-in-region-fuzzy-match t)
 
+;; https://github.com/syohex/emacs-helm-ag#helm-ag-insert-at-pointdefault-nil
+(setq helm-ag-insert-at-point 'symbol)
+;; (setq helm-ag-fuzzy-match t)
+(setq helm-ag-use-agignore t)
+
 
 ;; Disable guru mode
 (setq prelude-guru nil)

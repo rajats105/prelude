@@ -16,9 +16,9 @@
 ;;; Code:
 
 ;; http://doc.norang.ca/org-mode.html
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+;; (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
-(global-set-key (kbd "C-c c") 'org-capture)
+;; (global-set-key (kbd "C-c c") 'org-capture)
 
 ;; Cleaner view ;;
 (setq org-hide-leading-stars t)
@@ -32,40 +32,40 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; PATHS
 
-(setq org-directory "~/rajat/org")
-(setq org-todo-directory (concat org-directory "/todo"))
-(setq org-note-directory (concat org-directory "/note"))
-(setq org-journal-directory (concat org-directory "/journal"))
+;; (setq org-directory "~/rajat/org")
+;; (setq org-todo-directory (concat org-directory "/todo"))
+;; (setq org-note-directory (concat org-directory "/note"))
+;; (setq org-journal-directory (concat org-directory "/journal"))
 
-(setq xt-todo-work-file (concat org-todo-directory "/work.org"))
-(setq xt-todo-personal-file (concat org-todo-directory "/personal.org"))
+;; (setq xt-todo-work-file (concat org-todo-directory "/work.org"))
+;; (setq xt-todo-personal-file (concat org-todo-directory "/personal.org"))
 
-(setq xt-calendar-file (concat org-todo-directory "/calendar.org"))
-(setq xt-note-file (concat org-note-directory "/note.org"))
-(setq xt-refile-file (concat org-todo-directory "/refile.org"))
-(setq xt-journal-file (concat org-journal-directory "/journal.org"))
+;; (setq xt-calendar-file (concat org-todo-directory "/calendar.org"))
+;; (setq xt-note-file (concat org-note-directory "/note.org"))
+;; (setq xt-refile-file (concat org-todo-directory "/refile.org"))
+;; (setq xt-journal-file (concat org-journal-directory "/journal.org"))
 
 
-(setq org-default-notes-file xt-note-file)
+;; (setq org-default-notes-file xt-note-file)
 
-(setq org-agenda-files (list xt-todo-work-file
-                             xt-todo-personal-file
-                             xt-calendar-file))
+;; (setq org-agenda-files (list xt-todo-work-file
+;;                              xt-todo-personal-file
+;;                              xt-calendar-file))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; TODO
 
-(setq org-todo-keywords
-      '((sequence
-         "TODO(t)"
-         "PROJECT(p)"
-         "QUERY(q)"
-         "IDEA(i)"
-         "WAITING(w@/!)"
-         "|"
-         "DONE(d!)"
-         "CANCELED(c@/!)")))
+;; (setq org-todo-keywords
+;;       '((sequence
+;;          "TODO(t)"
+;;          "PROJECT(p)"
+;;          "QUERY(q)"
+;;          "IDEA(i)"
+;;          "WAITING(w@/!)"
+;;          "|"
+;;          "DONE(d!)"
+;;          "CANCELED(c@/!)")))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "indian red" :weight bold)
@@ -76,11 +76,11 @@
               ("WAITING" :foreground "plum" :weight bold)
               ("CANCELED" :foreground "forest green" :weight bold))))
 
-(setq org-tag-alist '(("PROJECT" . ?p)
-                      ("QUESTION" . ?q)
-                      ("OBSERVATION" . ?o)
-                      ("IDEA" . ?i)
-                      ("MEETING" . ?m)))
+;; (setq org-tag-alist '(("PROJECT" . ?p)
+;;                       ("QUESTION" . ?q)
+;;                       ("OBSERVATION" . ?o)
+;;                       ("IDEA" . ?i)
+;;                       ("MEETING" . ?m)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -229,136 +229,136 @@
 
 ;; Copied from
 ;; https://github.com/jwiegley/dot-emacs/blob/f9d7e331dd8a6048af3c5ac88fea092b86da7ac5/org-settings.el
-(setq org-capture-templates
-      (quote
-       (("w" "Work: add task" entry
-         (file+headline xt-todo-work-file "Inbox")
-         "* TODO %?
-  SCHEDULED: %t
-  :PROPERTIES:
-  :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-  :END:" :prepend t)
-        ("p" "Personal: add task" entry
-         (file+headline xt-todo-personal-file "Inbox")
-         "* TODO %?
-  SCHEDULED: %t
-  :PROPERTIES:
-  :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-  :END:" :prepend t)
-        ("n" "Note" entry
-         (file xt-note-file)
-         "* NOTE %?
-:PROPERTIES:
-:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-:END:" :prepend t)
-        ("c" "Calendar" entry
-         (file+headline "~/rajat/org/todo/calendar.org" "Inbox")
-         "* TODO %?
-  SCHEDULED: %t
-  :PROPERTIES:
-  :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-  :END:" :prepend t)
-        ("j" "Journal Entry"
-         entry (file+datetree xt-journal-file)
-         "* %?")
-        ("l" "Worklog entry"
-         entry (file+datetree xt-work-logbook-file)
-         "* %?"))))
+;; (setq org-capture-templates
+;;       (quote
+;;        (("w" "Work: add task" entry
+;;          (file+headline xt-todo-work-file "Inbox")
+;;          "* TODO %?
+;;   SCHEDULED: %t
+;;   :PROPERTIES:
+;;   :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+;;   :END:" :prepend t)
+;;         ("p" "Personal: add task" entry
+;;          (file+headline xt-todo-personal-file "Inbox")
+;;          "* TODO %?
+;;   SCHEDULED: %t
+;;   :PROPERTIES:
+;;   :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+;;   :END:" :prepend t)
+;;         ("n" "Note" entry
+;;          (file xt-note-file)
+;;          "* NOTE %?
+;; :PROPERTIES:
+;; :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+;; :END:" :prepend t)
+;;         ("c" "Calendar" entry
+;;          (file+headline "~/rajat/org/todo/calendar.org" "Inbox")
+;;          "* TODO %?
+;;   SCHEDULED: %t
+;;   :PROPERTIES:
+;;   :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+;;   :END:" :prepend t)
+;;         ("j" "Journal Entry"
+;;          entry (file+datetree xt-journal-file)
+;;          "* %?")
+;;         ("l" "Worklog entry"
+;;          entry (file+datetree xt-work-logbook-file)
+;;          "* %?"))))
+;;
+;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; Agenda custom commands
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Agenda custom commands
-
-(setq org-agenda-custom-commands
-   (quote
-    (("e" "Emacs Tasks" tags "TODO<>\"PROJECT\"&LEVEL<>1"
-      ((org-agenda-overriding-header "Emacs Tasks")
-       (org-agenda-files
-        (quote
-         ("~/doc/tasks/emacs.txt")))))
-     ("h" "Current Hotlist" tags "HOT&TODO=\"PROJECT\""
-      ((org-agenda-overriding-header "Current Hotlist")))
-     ("H" "Non-Hot Projects" tags "-HOT&TODO=\"PROJECT\""
-      ((org-agenda-overriding-header "Non-Hot Projects")))
-     ("A" "Priority #A tasks" agenda ""
-      ((org-agenda-ndays 1)
-       (org-agenda-overriding-header "Today's priority #A tasks: ")
-       (org-agenda-skip-function
-        (quote
-         (org-agenda-skip-entry-if
-          (quote notregexp)
-          "\\=.*\\[#A\\]")))))
-     ("b" "Priority #A and #B tasks" agenda ""
-      ((org-agenda-ndays 1)
-       (org-agenda-overriding-header "Today's priority #A and #B tasks: ")
-       (org-agenda-skip-function
-        (quote
-         (org-agenda-skip-entry-if
-          (quote regexp)
-          "\\=.*\\[#C\\]")))))
-     ("r" "Uncategorized items" tags "CATEGORY=\"Inbox\"&LEVEL=2"
-      ((org-agenda-overriding-header "Uncategorized items")))
-     ("W" "Waiting/delegated tasks" tags "TODO=\"WAITING\"|TODO=\"DELEGATED\""
-      ((org-agenda-overriding-header "Waiting/delegated tasks:")
-       (org-agenda-sorting-strategy
-        (quote
-         (todo-state-up priority-down category-up)))))
-     ("u" "Unscheduled tasks" tags "TODO<>\"\"&TODO<>{DONE\\|CANCELED\\|NOTE\\|PROJECT}&CATEGORY<>{Assembly}"
-      ((org-agenda-overriding-header "Unscheduled tasks: ")
-       (org-agenda-skip-function
-        (quote
-         (org-agenda-skip-entry-if
-          (quote scheduled)
-          (quote deadline)
-          (quote timestamp)
-          (quote regexp)
-          "\\* \\(DEFERRED\\|SOMEDAY\\)")))
-       (org-agenda-sorting-strategy
-        (quote
-         (priority-down)))))
-     ("U" "Deferred tasks" tags "TODO=\"DEFERRED\""
-      ((org-agenda-files
-        (quote
-         ("~/doc/tasks/todo.txt")))
-       (org-agenda-overriding-header "Deferred tasks:")))
-     ("Y" "Someday tasks" tags "TODO=\"SOMEDAY\""
-      ((org-agenda-overriding-header "Someday tasks:")))
-     ("w" "Unscheduled work-related tasks" tags "TODO<>\"\"&TODO<>{DONE\\|CANCELED\\|NOTE\\|PROJECT}"
-      ((org-agenda-overriding-header "Unscheduled work-related tasks")
-       (org-agenda-files
-        (quote
-         ("~/doc/tasks/BAE.txt")))
-       (org-agenda-sorting-strategy
-        (quote
-         (todo-state-up priority-down category-up)))
-       (org-agenda-skip-function
-        (quote
-         (org-agenda-skip-entry-if
-          (quote scheduled)
-          (quote deadline)
-          (quote timestamp))))))
-     ("S" "Assembly Action Items" tags-todo "TODO<>\"PROJECT\""
-      ((org-agenda-files
-        (quote
-         ("~/doc/tasks/assembly.txt")))
-       (org-agenda-overriding-header "Assembly Action Items")
-       (org-agenda-sorting-strategy
-        (quote
-         (alpha-up time-up)))))
-     ("c" "Appointment Calendar" agenda ""
-      ((org-agenda-overriding-header "Appointment Calendar")
-       (org-agenda-sorting-strategy
-        (quote
-         (time-up)))
-       (org-agenda-span 14)
-       (org-agenda-ndays 14)
-       (org-agenda-regexp-filter-preset
-        (quote
-         ("+APPT")))))
-     ("Z" "MobileOrg Tasks" agenda ""
-      ((org-agenda-overriding-header "MobileOrg Tasks")
-       (org-agenda-span 14)
-       (org-agenda-ndays 14))))))
+;; (setq org-agenda-custom-commands
+;;    (quote
+;;     (("e" "Emacs Tasks" tags "TODO<>\"PROJECT\"&LEVEL<>1"
+;;       ((org-agenda-overriding-header "Emacs Tasks")
+;;        (org-agenda-files
+;;         (quote
+;;          ("~/doc/tasks/emacs.txt")))))
+;;      ("h" "Current Hotlist" tags "HOT&TODO=\"PROJECT\""
+;;       ((org-agenda-overriding-header "Current Hotlist")))
+;;      ("H" "Non-Hot Projects" tags "-HOT&TODO=\"PROJECT\""
+;;       ((org-agenda-overriding-header "Non-Hot Projects")))
+;;      ("A" "Priority #A tasks" agenda ""
+;;       ((org-agenda-ndays 1)
+;;        (org-agenda-overriding-header "Today's priority #A tasks: ")
+;;        (org-agenda-skip-function
+;;         (quote
+;;          (org-agenda-skip-entry-if
+;;           (quote notregexp)
+;;           "\\=.*\\[#A\\]")))))
+;;      ("b" "Priority #A and #B tasks" agenda ""
+;;       ((org-agenda-ndays 1)
+;;        (org-agenda-overriding-header "Today's priority #A and #B tasks: ")
+;;        (org-agenda-skip-function
+;;         (quote
+;;          (org-agenda-skip-entry-if
+;;           (quote regexp)
+;;           "\\=.*\\[#C\\]")))))
+;;      ("r" "Uncategorized items" tags "CATEGORY=\"Inbox\"&LEVEL=2"
+;;       ((org-agenda-overriding-header "Uncategorized items")))
+;;      ("W" "Waiting/delegated tasks" tags "TODO=\"WAITING\"|TODO=\"DELEGATED\""
+;;       ((org-agenda-overriding-header "Waiting/delegated tasks:")
+;;        (org-agenda-sorting-strategy
+;;         (quote
+;;          (todo-state-up priority-down category-up)))))
+;;      ("u" "Unscheduled tasks" tags "TODO<>\"\"&TODO<>{DONE\\|CANCELED\\|NOTE\\|PROJECT}&CATEGORY<>{Assembly}"
+;;       ((org-agenda-overriding-header "Unscheduled tasks: ")
+;;        (org-agenda-skip-function
+;;         (quote
+;;          (org-agenda-skip-entry-if
+;;           (quote scheduled)
+;;           (quote deadline)
+;;           (quote timestamp)
+;;           (quote regexp)
+;;           "\\* \\(DEFERRED\\|SOMEDAY\\)")))
+;;        (org-agenda-sorting-strategy
+;;         (quote
+;;          (priority-down)))))
+;;      ("U" "Deferred tasks" tags "TODO=\"DEFERRED\""
+;;       ((org-agenda-files
+;;         (quote
+;;          ("~/doc/tasks/todo.txt")))
+;;        (org-agenda-overriding-header "Deferred tasks:")))
+;;      ("Y" "Someday tasks" tags "TODO=\"SOMEDAY\""
+;;       ((org-agenda-overriding-header "Someday tasks:")))
+;;      ("w" "Unscheduled work-related tasks" tags "TODO<>\"\"&TODO<>{DONE\\|CANCELED\\|NOTE\\|PROJECT}"
+;;       ((org-agenda-overriding-header "Unscheduled work-related tasks")
+;;        (org-agenda-files
+;;         (quote
+;;          ("~/doc/tasks/BAE.txt")))
+;;        (org-agenda-sorting-strategy
+;;         (quote
+;;          (todo-state-up priority-down category-up)))
+;;        (org-agenda-skip-function
+;;         (quote
+;;          (org-agenda-skip-entry-if
+;;           (quote scheduled)
+;;           (quote deadline)
+;;           (quote timestamp))))))
+;;      ("S" "Assembly Action Items" tags-todo "TODO<>\"PROJECT\""
+;;       ((org-agenda-files
+;;         (quote
+;;          ("~/doc/tasks/assembly.txt")))
+;;        (org-agenda-overriding-header "Assembly Action Items")
+;;        (org-agenda-sorting-strategy
+;;         (quote
+;;          (alpha-up time-up)))))
+;;      ("c" "Appointment Calendar" agenda ""
+;;       ((org-agenda-overriding-header "Appointment Calendar")
+;;        (org-agenda-sorting-strategy
+;;         (quote
+;;          (time-up)))
+;;        (org-agenda-span 14)
+;;        (org-agenda-ndays 14)
+;;        (org-agenda-regexp-filter-preset
+;;         (quote
+;;          ("+APPT")))))
+;;      ("Z" "MobileOrg Tasks" agenda ""
+;;       ((org-agenda-overriding-header "MobileOrg Tasks")
+;;        (org-agenda-span 14)
+;;        (org-agenda-ndays 14))))))
 
 
 (prelude-require-package 'htmlize)
