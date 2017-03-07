@@ -36,6 +36,11 @@
 (key-chord-define-global "II" 'helm-semantic-or-imenu)
 
 
+;; Fixes C-SPC not working with C-=
+;; https://github.com/magnars/expand-region.el/issues/220
+(setq shift-select-mode nil)
+
+
 ;; Allow access from emacsclient
 (require 'server)
 (unless (server-running-p)

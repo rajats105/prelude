@@ -125,4 +125,6 @@
 ;; http://emacs.stackexchange.com/questions/3458/how-to-switch-between-windows-quickly
 (windmove-default-keybindings)
 
+(prelude-require-package 'nocomments-mode)
+
 (provide 'xt-programming)
