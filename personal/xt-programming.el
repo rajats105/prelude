@@ -127,4 +127,6 @@
 
 (prelude-require-package 'nocomments-mode)
 
+(prelude-require-package 'nginx-mode)
+
 (provide 'xt-programming)

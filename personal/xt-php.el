@@ -13,8 +13,8 @@
 (setq flycheck-phpmd-rulesets '())
 (add-to-list 'flycheck-phpmd-rulesets (expand-file-name "~/.emacs.d/personal/misc/php/phpmd.xml"))
 
-(prelude-require-package 'dumb-jump)
-(require 'dumb-jump)
+;; (prelude-require-package 'dumb-jump)
+;; (require 'dumb-jump)
 ;; (add-hook 'php-mode-hook 'dumb-jump-mode)
 
 ;; (prelude-require-package 'company-php)
@@ -24,10 +24,16 @@
 ;;           '(lambda ()
 ;;              (require 'company-php)
 ;;              (company-mode t)
-;;              (add-to-list 'company-backends 'company-ac-php-backend )
-;;              (define-key php-mode-map  (kbd "M-.") 'ac-php-find-symbol-at-point)
-;;              (define-key php-mode-map  (kbd "M-,") 'ac-php-location-stack-back)))
+;;              (add-to-list (make-local-variable 'company-backends) 'company-ac-php-backend)
+;;              (define-key php-mode-map  (kbd "M-.") 'ac-php-find-symbol-at-point))
+;;              (define-key php-mode-map  (kbd "M-,") 'ac-php-location-stack-back))
 
 (add-hook 'php-mode-hook 'php-enable-symfony2-coding-style)
+(add-hook 'php-mode-hook 'helm-gtags-mode)
+
+(add-hook 'php-mode-hook
+          (lambda ()
+            (add-to-list (make-local-variable 'company-backends)
+                         'company-gtags)))
 
 (provide 'xt-php)

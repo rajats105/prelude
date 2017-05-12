@@ -28,6 +28,8 @@
 
 (prelude-require-package 'paradox)
 
+(prelude-require-package 'key-chord)
+
 ;; Most important functions I use
 (key-chord-define-global "BB" 'helm-mini)
 (key-chord-define-global "FF" 'helm-projectile-find-file)
@@ -35,6 +37,20 @@
 (key-chord-define-global "GG" 'helm-projectile-ag)
 (key-chord-define-global "II" 'helm-semantic-or-imenu)
 
+(prelude-require-package 'zop-to-char)
+
+(use-package zop-to-char
+  :ensure t
+  :bind (("M-z" . zop-up-to-char)
+         ("M-Z" . zop-to-char)))
+
+(use-package rainbow-delimiters
+  :ensure t)
+
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
 
 ;; Fixes C-SPC not working with C-=
 ;; https://github.com/magnars/expand-region.el/issues/220
@@ -45,6 +61,5 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
-
 
 (provide 'xt-defaults)

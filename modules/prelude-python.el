@@ -35,10 +35,6 @@
 
 (prelude-require-package 'anaconda-mode)
 
-(when (boundp 'company-backends)
-  (prelude-require-package 'company-anaconda)
-  (add-to-list 'company-backends 'company-anaconda))
-
 (require 'electric)
 (require 'prelude-programming)
 
@@ -105,6 +101,13 @@
 
 (add-hook 'python-mode-hook (lambda ()
                               (run-hooks 'prelude-python-mode-hook)))
+
+(prelude-require-package 'company-anaconda)
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (add-to-list (make-local-variable 'company-backends)
+                         'company-anaconda)))
 
 (provide 'prelude-python)
 

@@ -1,10 +1,5 @@
 (prelude-require-package 'helm-gtags)
 
-;; Enable helm-gtags-mode
-;; (add-hook 'php-mode-hook 'helm-gtags-mode)
-;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
-;; (add-hook 'asm-mode-hook 'helm-gtags-mode)
-
 ;; Set key bindings
 (eval-after-load "helm-gtags"
   '(progn
@@ -26,4 +21,4 @@
 (setq helm-gtags-auto-update t)
 
 ;; Tags are updated in `after-save-hook' if this seconds is passed from last update Always update if value of this variable is nil.
-(setq helm-gtags-update-interval-second 30)
+(setq helm-gtags-update-interval-second 5)

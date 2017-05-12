@@ -30,7 +30,10 @@
 (prelude-require-package 'company-tern)
 (require 'company-tern)
 
-(add-to-list 'company-backends 'company-tern)
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (add-to-list (make-local-variable 'company-backends)
+                         'company-tern)))
 
 ;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
