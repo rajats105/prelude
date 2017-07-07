@@ -31,4 +31,30 @@
     (insert (message  "Candidates number: %i" (length cc)))
     (special-mode)))
 
+(defun replace-pretty-quotes ()
+  "Replace pretty quotes with standard quotes."
+  (interactive)
+  (replace-regexp-and-return "[”“]" "\""))
+
+(defun edit-util-functions ()
+  "Open handy-functions.el for editing."
+  (interactive)
+  (find-file "~/.emacs.d/personal/xt-utils.el"))
+
+(defun flush-blank-lines ()
+  "Flush blank lines."
+  (interactive)
+  (flush-lines "^\s*$" nil nil t))
+
+(defun snippy-comment ()
+  "Insert a snip line - - 8< - - - comment."
+  (interactive)
+  (end-of-line)
+  (newline)
+  (insert "- - 8<")
+  (cl-loop repeat 60 do (insert " -"))
+  (beginning-of-line)
+  (comment-region (point-at-bol) (point-at-eol)))
+
+
 (provide 'xt-utils)
