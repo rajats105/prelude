@@ -29,4 +29,4 @@ personal/xt-secret.el
 games/*
 .emacs.desktop
 .emacs.desktop.lock
-
+network-security.data

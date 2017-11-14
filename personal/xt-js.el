@@ -5,8 +5,8 @@
 (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.tern-config\\'" . js-mode))
 
-;; (setq js-indent-level 2)
-;; (setq js2-indent-level 2)
+(setq js-indent-level 2)
+(setq js2-indent-level 2)
 
 ;; http://writequit.org/org/settings.html#sec-1-3-12
 (js2-imenu-extras-setup)

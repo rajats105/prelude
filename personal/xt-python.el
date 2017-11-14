@@ -7,15 +7,13 @@
 
 ;; (add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 
-;; (prelude-require-package ! 'pyvenv)
+(prelude-require-package 'pyvenv)
 
 (setenv "WORKON_HOME" "/Users/rajat/miniconda3/envs")
-;; (pyvenv-mode 1)
-
-;; (pyvenv-workon "cm-cobra")
+(pyvenv-mode 1)
+(pyvenv-tracking-mode 1)
 
 (add-hook 'python-mode-hook 'eldoc-mode)
-
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 

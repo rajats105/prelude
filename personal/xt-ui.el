@@ -44,9 +44,12 @@
     (setq mac-allow-anti-aliasing t)
     (setq default-input-method "MacOSX")
     ;; Make mouse wheel / trackpad scrolling less jerky
-    (setq mouse-wheel-scroll-amount '(1
-                                      ((shift) . 5)
-                                      ((control))))
+    ;; (setq mouse-wheel-scroll-amount '(1
+    ;;                                   ((shift) . 5)
+    ;;                                   ((control))))
+    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+    (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+    (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
     (dolist (multiple '("" "double-" "triple-"))
       (dolist (direction '("right" "left"))
         (global-set-key (kbd (concat "<" multiple "wheel-" direction ">")) 'ignore)))

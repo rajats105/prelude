@@ -26,7 +26,7 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Moving-Point.html
 (setq line-move-visual nil)
 
-(prelude-require-package 'paradox)
+;; (prelude-require-package 'paradox)
 
 (prelude-require-package 'key-chord)
 
@@ -61,5 +61,18 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+(diminish 'editorconfig-mode)
+(diminish 'helm-gtags-mode)
+(diminish 'highlight-symbol-mode)
+(diminish 'whitespace-mode)
+(diminish 'smartparens-mode)
+(diminish 'indent-guide-mode)
+(diminish 'abbrev-mode)
+(diminish 'which-key-mode)
+(diminish 'prelude-mode)
+(diminish 'helm-mode)
+(diminish 'winner-mode)
+(diminish 'company-mode)
 
 (provide 'xt-defaults)
