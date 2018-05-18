@@ -14,7 +14,7 @@
     ;; (set-face-font 'default "Monaco-11")
     (set-face-font 'default "Source Code Pro-12")
     ;; (set-face-font 'default "Noto Mono-12")
-  (set-face-font 'default "Monospace-10"))
+  (set-face-font 'default "Source Code Pro-11"))
 
 (set-frame-font "Source Code Pro-12")
 
