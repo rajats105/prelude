@@ -65,6 +65,8 @@
 
 ;; (prelude-require-package 'leuven-theme)
 
+(prelude-require-package 'solarized-theme)
+
 (provide 'xt-ui)
 
 ;;; xt-ui.el ends here
