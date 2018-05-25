@@ -9,7 +9,7 @@
 
 (prelude-require-package 'pyvenv)
 
-(setenv "WORKON_HOME" "/Users/rajat/miniconda3/envs")
+(setenv "WORKON_HOME" "~/.anaconda/envs")
 (pyvenv-mode 1)
 (pyvenv-tracking-mode 1)
 

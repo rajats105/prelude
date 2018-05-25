@@ -11,9 +11,7 @@
 
 ;; choose your own fonts, in a system dependant way
 (if (string-match "apple-darwin" system-configuration)
-    ;; (set-face-font 'default "Monaco-11")
     (set-face-font 'default "Source Code Pro-12")
-    ;; (set-face-font 'default "Noto Mono-12")
   (set-face-font 'default "Source Code Pro-11"))
 
 (set-frame-font "Source Code Pro-12")
@@ -61,11 +59,6 @@
     (global-set-key (kbd "M-ˍ") 'ns-do-hide-others)))
 
 ;;(sleep-for 1)
-;;(toggle-frame-fullscreen)
-
-;; (prelude-require-package 'leuven-theme)
-
-(prelude-require-package 'solarized-theme)
 
 (provide 'xt-ui)
 

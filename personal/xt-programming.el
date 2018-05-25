@@ -1,9 +1,6 @@
 (prelude-require-package 'realgud)
 (require 'realgud)
 
-(setq tab-width 4)
-
-
 (prelude-require-package 'highlight-symbol)
 
 (add-hook 'prog-mode-hook #'highlight-symbol-mode)
@@ -24,13 +21,8 @@
 
 ;; (global-set-key (kbd "C-q") 'isearch-forward-symbol-at-point)
 
-;; put windows side by side
-(setq ediff-split-window-function 'split-window-horizontally)
-
 ;;revert windows on exit - needs winner mode
 ;; (remove-hook 'ediff-after-quit-hook-internal 'winner-undo)
-
-(setq whitespace-line-column 160)
 
 (prelude-require-package 'multiple-cursors)
 
@@ -100,17 +92,6 @@
 ;; If you prefer fuzzy matching
 (setq helm-swoop-use-fuzzy-match t)
 
-
-(prelude-require-package 'restclient)
-(prelude-require-package 'know-your-http-well)
-
-(setq-default indent-tabs-mode nil)
-(setq-default standard-indent 4)
-(setq-default css-indent-offset 4)
-(setq-default python-indent 4)
-(setq-default js-indent-level 4)
-
-
 (defun newline-for-code ()
   "Inserts a newline character, but from the end of the current line."
   (interactive)
@@ -119,14 +100,12 @@
 
 (global-set-key (kbd "M-RET") 'newline-for-code)
 
-;; Clojure indentation
-(setq clojure-indent-style :always-indent)
-
 ;; http://emacs.stackexchange.com/questions/3458/how-to-switch-between-windows-quickly
 (windmove-default-keybindings)
 
+(prelude-require-package 'restclient)
+(prelude-require-package 'know-your-http-well)
 (prelude-require-package 'nocomments-mode)
-
 (prelude-require-package 'nginx-mode)
 
 (provide 'xt-programming)

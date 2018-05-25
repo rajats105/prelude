@@ -19,15 +19,7 @@
 ;; (setq helm-ag-fuzzy-match t)
 (setq helm-ag-use-agignore t)
 
-
-;; Disable guru mode
-(setq prelude-guru nil)
-
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Moving-Point.html
-(setq line-move-visual nil)
-
 ;; (prelude-require-package 'paradox)
-
 (prelude-require-package 'key-chord)
 
 ;; Most important functions I use
@@ -51,11 +43,6 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-mode))
-
-;; Fixes C-SPC not working with C-=
-;; https://github.com/magnars/expand-region.el/issues/220
-(setq shift-select-mode nil)
-
 
 ;; Allow access from emacsclient
 (require 'server)
