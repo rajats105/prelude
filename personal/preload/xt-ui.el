@@ -19,7 +19,6 @@
   (set-frame-font "Source Code Pro-11"))
 
 
-
 ;; Auto hide the menu bar
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
