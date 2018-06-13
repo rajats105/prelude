@@ -14,7 +14,11 @@
     (set-face-font 'default "Source Code Pro-12")
   (set-face-font 'default "Source Code Pro-11"))
 
-(set-frame-font "Source Code Pro-12")
+(if (string-match "apple-darwin" system-configuration)
+    (set-frame-font "Source Code Pro-12")
+  (set-frame-font "Source Code Pro-11"))
+
+
 
 ;; Auto hide the menu bar
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))

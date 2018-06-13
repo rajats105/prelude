@@ -37,6 +37,6 @@
 (require 'nvm)
 
 (nvm--installed-versions)
-(nvm-use "v8.11.1")
+(nvm-use "v6.4.0")
 
 (provide 'xt-js)
