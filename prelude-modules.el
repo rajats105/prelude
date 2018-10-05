@@ -3,7 +3,7 @@
 ;; Emacs IRC client
 (require 'prelude-erc)
 ;; (require 'prelude-ido) ;; Super charges Emacs completion for C-x C-f and more
-(require 'prelude-ivy) ;; A mighty modern alternative to ido
+;; (require 'prelude-ivy) ;; A mighty modern alternative to ido
 (require 'prelude-helm) ;; Interface for narrowing and search
 (require 'prelude-helm-everywhere) ;; Enable Helm everywhere
 (require 'prelude-company)
@@ -35,6 +35,7 @@
 (require 'prelude-scheme)
 (require 'prelude-shell)
 (require 'prelude-scss)
+;; (require 'prelude-ts)
 (require 'prelude-web) ;; Emacs mode for web templates
 (require 'prelude-xml)
 (require 'prelude-yaml)

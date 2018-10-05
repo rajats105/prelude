@@ -36,7 +36,7 @@
 (prelude-require-package 'nvm)
 (require 'nvm)
 
-(nvm--installed-versions)
-(nvm-use "v6.4.0")
+;; (nvm--installed-versions)
+;; (nvm-use "v6.4.0")
 
 (provide 'xt-js)
