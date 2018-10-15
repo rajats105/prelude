@@ -3,7 +3,12 @@
 
 (setq js2-indent-level 2)
 
+(setq-default css-indent-offset 2)
+(setq-default js-auto-indent-flag nil)
+(setq-default js-indent-level 2)
 (setq-default js2-basic-offset 2)
+
+(setq inferior-js-program-command "node")
 
 (prelude-require-package 'js2-mode)
 

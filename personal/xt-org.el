@@ -16,66 +16,48 @@
 ;;; Code:
 
 ;; http://doc.norang.ca/org-mode.html
-;; (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
-;; (global-set-key (kbd "C-c c") 'org-capture)
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; Cleaner view ;;
 (setq org-hide-leading-stars t)
 (setq org-hide-emphasis-markers t)
 (setq org-odd-levels-only t)
 
-(prelude-require-package 'org-bullets)
-(add-hook 'org-mode-hook 'org-bullets-mode)
+;; (prelude-require-package 'org-bullets)
+;; (add-hook 'org-mode-hook 'org-bullets-mode)
 
+(setq org-directory "~/.orgnote/")
+(setq org-default-notes-file (concat org-directory "inbox.org"))
+(setq org-agenda-files (list (concat org-directory "inbox.org")
+                             (concat org-directory "todo.org")
+                             (concat org-directory "tickler.org")))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; PATHS
+;; Custom org todo keywords
+(setq org-todo-keywords
+      '((sequence
+         "TODO(t)"
+         "NEXT(n)"
+         "DEFER(e)"
+         "IDEA(i)"
+         "WAIT(w@/!)"
+         "|"
+         "DONE(d!)"
+         "CANCEL(c@/!)")))
 
-;; (setq org-directory "~/rajat/org")
-;; (setq org-todo-directory (concat org-directory "/todo"))
-;; (setq org-note-directory (concat org-directory "/note"))
-;; (setq org-journal-directory (concat org-directory "/journal"))
-
-;; (setq xt-todo-work-file (concat org-todo-directory "/work.org"))
-;; (setq xt-todo-personal-file (concat org-todo-directory "/personal.org"))
-
-;; (setq xt-calendar-file (concat org-todo-directory "/calendar.org"))
-;; (setq xt-note-file (concat org-note-directory "/note.org"))
-;; (setq xt-refile-file (concat org-todo-directory "/refile.org"))
-;; (setq xt-journal-file (concat org-journal-directory "/journal.org"))
-
-
-;; (setq org-default-notes-file xt-note-file)
-
-;; (setq org-agenda-files (list xt-todo-work-file
-;;                              xt-todo-personal-file
-;;                              xt-calendar-file))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; TODO
-
-;; (setq org-todo-keywords
-;;       '((sequence
-;;          "TODO(t)"
-;;          "PROJECT(p)"
-;;          "QUERY(q)"
-;;          "IDEA(i)"
-;;          "WAITING(w@/!)"
-;;          "|"
-;;          "DONE(d!)"
-;;          "CANCELED(c@/!)")))
-
+;; Set colors for keywords
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "indian red" :weight bold)
-              ("PROJECT" :foreground "dark khaki" :weight bold)
+              ("DEFER" :foreground "dark khaki" :weight bold)
               ("IDEA" :foreground "cornflower blue" :weight bold)
-              ("QUERY" :foreground "dark salmon" :weight bold)
+              ("NEXT" :foreground "dark salmon" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
-              ("WAITING" :foreground "plum" :weight bold)
-              ("CANCELED" :foreground "forest green" :weight bold))))
+              ("WAIT" :foreground "plum" :weight bold)
+              ("CANCEL" :foreground "forest green" :weight bold))))
 
+;; Set tags
 ;; (setq org-tag-alist '(("PROJECT" . ?p)
 ;;                       ("QUESTION" . ?q)
 ;;                       ("OBSERVATION" . ?o)
@@ -83,17 +65,14 @@
 ;;                       ("MEETING" . ?m)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Priorities
-
-(setq org-highest-priority ?A)
-(setq org-lowest-priority ?C)
-(setq org-default-priority ?A)
+;; (setq org-highest-priority ?A)
+;; (setq org-lowest-priority ?C)
+;; (setq org-default-priority ?A)
 
 ;;set colours for priorities
-(setq org-priority-faces '((?A . (:foreground "SaddleBrown" :weight bold))
-                           (?B . (:foreground "RoyalBlue4"))
-                           (?C . (:foreground "SpringGreen4"))))
+;; (setq org-priority-faces '((?A . (:foreground "SaddleBrown" :weight bold))
+;;                            (?B . (:foreground "RoyalBlue4"))
+;;                            (?C . (:foreground "SpringGreen4"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -101,7 +80,6 @@
 
 ;;show me tasks scheduled or due in next fortnight
 (setq org-agenda-span (quote fortnight))
-;;(setq org-agenda-span 2)
 
 ;; https://github.com/jwiegley/newartisans/blob/master/posts/2007-08-20-using-org-mode-as-a-day-planner.md
 (setq org-agenda-start-on-weekday nil)
@@ -146,10 +124,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Refile
 
-;; http://doc.norang.ca/org-mode.html
-; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 1))))
+(setq org-refile-targets '(("todo.org" :maxlevel . 3)
+                           ("tickler.org" :level . 2)
+                           ("someday.org" :maxlevel . 1)))
 
 ; Use full outline paths for refile targets - we file directly with IDO
 (setq org-refile-use-outline-path t)
@@ -171,6 +148,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc
 
+(setq org-return-follows-link t)
 (setq org-enforce-todo-dependencies t)
 (setq org-track-ordered-property-with-tag t)
 
@@ -193,7 +171,8 @@
 
 
 (setq org-blank-before-bullet t)
-(setq org-blank-before-new-entry (quote ((heading . auto) (plain-list-item . auto))))
+;; (setq org-blank-before-new-entry (quote ((heading . auto) (plain-list-item . auto))))
+(setq org-blank-before-new-entry (quote ((heading . always) (plain-list-item . nil))))
 
 ;; (setq org-cycle-include-plain-lists nil)
 
@@ -212,6 +191,7 @@
 (setq org-log-reschedule (quote time))
 
 (setq org-ellipsis " …")
+(setq org-ellipsis " \u25bc")
 
 (setq org-clock-continuously nil)
 (setq org-clock-persist t) ;; Persist clock data
@@ -229,43 +209,42 @@
 
 ;; Copied from
 ;; https://github.com/jwiegley/dot-emacs/blob/f9d7e331dd8a6048af3c5ac88fea092b86da7ac5/org-settings.el
-;; (setq org-capture-templates
-;;       (quote
-;;        (("w" "Work: add task" entry
-;;          (file+headline xt-todo-work-file "Inbox")
-;;          "* TODO %?
-;;   SCHEDULED: %t
-;;   :PROPERTIES:
-;;   :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-;;   :END:" :prepend t)
-;;         ("p" "Personal: add task" entry
-;;          (file+headline xt-todo-personal-file "Inbox")
-;;          "* TODO %?
-;;   SCHEDULED: %t
-;;   :PROPERTIES:
-;;   :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-;;   :END:" :prepend t)
-;;         ("n" "Note" entry
-;;          (file xt-note-file)
-;;          "* NOTE %?
-;; :PROPERTIES:
-;; :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-;; :END:" :prepend t)
-;;         ("c" "Calendar" entry
-;;          (file+headline "~/rajat/org/todo/calendar.org" "Inbox")
-;;          "* TODO %?
-;;   SCHEDULED: %t
-;;   :PROPERTIES:
-;;   :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
-;;   :END:" :prepend t)
-;;         ("j" "Journal Entry"
-;;          entry (file+datetree xt-journal-file)
-;;          "* %?")
-;;         ("l" "Worklog entry"
-;;          entry (file+datetree xt-work-logbook-file)
-;;          "* %?"))))
-;;
-;;
+
+(setq org-capture-templates
+      (quote
+       (("w" "a new task" entry
+         (file+headline "inbox.org" "Task")
+         "* %^{state|TODO|TODO|IDEA|DEFER} %?"
+         :prepend t
+         :empty-lines 1
+         :created t
+         :kill-buffer t)
+        ("t" "a new tickler" entry
+         (file+headline "tickler.org" "Tickler")
+         "* %i%? \n %^u"
+         :empty-lines 1
+         :created t
+         :kill-buffer t)
+        ("i" "a new idea" entry
+         (file+headline "inbox.org" "Idea")
+         "* %?"
+         :empty-lines 1
+         :created t
+         :kill-buffer t)
+        ("n" "a new note" entry
+         (file+headline "inbox.org" "Note")
+         "* %?"
+         :empty-lines 1
+         :created t
+         :kill-buffer t)
+        ("c" "save from clipboard" plain
+         (file+headline "inbox.org" "Later")
+         "%x"
+         :empty-lines 1
+         :created t
+         :kill-buffer t))))
+
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;; Agenda custom commands
 
@@ -360,8 +339,6 @@
 ;;        (org-agenda-span 14)
 ;;        (org-agenda-ndays 14))))))
 
-
-(prelude-require-package 'htmlize)
 
 (provide 'xt-org)
 ;;; xt-org.el ends here

@@ -108,4 +108,9 @@
 (prelude-require-package 'nocomments-mode)
 (prelude-require-package 'nginx-mode)
 
+(prelude-require-package 'auto-yasnippet)
+
+(global-set-key (kbd "M-c") #'aya-create)
+(global-set-key (kbd "M-y") #'aya-expand)
+
 (provide 'xt-programming)

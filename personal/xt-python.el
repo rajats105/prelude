@@ -9,7 +9,7 @@
 
 (prelude-require-package 'pyvenv)
 
-(setenv "WORKON_HOME" "~/.anaconda/envs")
+(setenv "WORKON_HOME" "~/.miniconda/envs")
 (pyvenv-mode 1)
 (pyvenv-tracking-mode 1)
 
@@ -24,7 +24,7 @@
       (define-key anaconda-mode-map (kbd "M-,") 'anaconda-mode-go-back)
       (define-key anaconda-mode-map (kbd "M-/") 'anaconda-mode-find-assignments)))
 
-(prelude-require-package 'virtualenvwrapper)
+;; (prelude-require-package 'virtualenvwrapper)
 
 ;; (venv-initialize-interactive-shells) ;; if you want interactive shell support
 ;; (venv-initialize-eshell) ;; if you want eshell support
