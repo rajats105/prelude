@@ -35,6 +35,8 @@
 
 (require 'company)
 
+(add-to-list 'prelude-diminish-list 'company-mode)
+
 (setq company-idle-delay 0.5)
 (setq company-show-numbers t)
 (setq company-tooltip-limit 10)

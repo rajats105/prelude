@@ -78,6 +78,7 @@
     magit
     move-text
     operate-on-number
+    smart-mode-line
     smartparens
     smartrep
     super-save
@@ -87,6 +88,16 @@
     zenburn-theme
     zop-to-char)
   "A list of packages to ensure are installed at launch.")
+
+(defvar prelude-diminish-list
+  '(abbrev-mode
+    prelude-mode
+    projectile-mode
+    smartparens-mode
+    super-save-mode
+    which-key-mode
+    winner-mode)
+  "List of packages to be diminished from the mode line.")
 
 (defun prelude-packages-installed-p ()
   "Check if all packages in `prelude-packages' are installed."

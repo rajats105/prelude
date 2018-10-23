@@ -33,7 +33,7 @@
 ;;; Code:
 
 (require 'prelude-programming)
-(prelude-require-packages '(js2-mode json-mode))
+(prelude-require-packages '(js2-mode json-mode pug-mode company-tern))
 
 (require 'js2-mode)
 
@@ -46,11 +46,18 @@
     ;; electric-layout-mode doesn't play nice with smartparens
     (setq-local electric-layout-rules '((?\; . after)))
     (setq mode-name "JS2")
-    (js2-imenu-extras-mode +1))
+    (setq js2-strict-missing-semi-warning nil)
+    (setq js2-missing-semi-one-line-override t)
+    (setq js-auto-indent-flag nil)
+    (setq js-indent-level 2)
+    (setq js2-basic-offset 2)
+    (js2-imenu-extras-mode +1)
+    (tern-mode t)
+    (add-to-list (make-local-variable 'company-backends)
+                 'company-tern)))
 
-  (setq prelude-js-mode-hook 'prelude-js-mode-defaults)
-
-  (add-hook 'js2-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook))))
+(setq prelude-js-mode-hook 'prelude-js-mode-defaults)
+(add-hook 'js2-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook)))
 
 (provide 'prelude-js)
 

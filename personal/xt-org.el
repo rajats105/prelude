@@ -17,23 +17,22 @@
 
 ;; http://doc.norang.ca/org-mode.html
 
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-
-(global-set-key (kbd "C-c c") 'org-capture)
-
 ;; Cleaner view ;;
 (setq org-hide-leading-stars t)
 (setq org-hide-emphasis-markers t)
 (setq org-odd-levels-only t)
 
-;; (prelude-require-package 'org-bullets)
-;; (add-hook 'org-mode-hook 'org-bullets-mode)
+(setq org-blank-before-bullet t)
+(setq org-blank-before-new-entry (quote ((heading . always) (plain-list-item . nil))))
 
+
+;; Dirs
 (setq org-directory "~/.orgnote/")
 (setq org-default-notes-file (concat org-directory "inbox.org"))
 (setq org-agenda-files (list (concat org-directory "inbox.org")
                              (concat org-directory "todo.org")
                              (concat org-directory "tickler.org")))
+
 
 ;; Custom org todo keywords
 (setq org-todo-keywords
@@ -128,8 +127,8 @@
                            ("tickler.org" :level . 2)
                            ("someday.org" :maxlevel . 1)))
 
-; Use full outline paths for refile targets - we file directly with IDO
-(setq org-refile-use-outline-path t)
+; Use full outline paths for refile targets
+(setq org-refile-use-outline-path 'file)
 
 ; Targets complete directly with IDO
 (setq org-outline-path-complete-in-steps nil)
@@ -169,39 +168,30 @@
 
 (setq org-columns-default-format "%14SCHEDULED %Effort{:} %1PRIORITY %TODO %50ITEM %TAGS")
 
-
-(setq org-blank-before-bullet t)
-;; (setq org-blank-before-new-entry (quote ((heading . auto) (plain-list-item . auto))))
-(setq org-blank-before-new-entry (quote ((heading . always) (plain-list-item . nil))))
-
 ;; (setq org-cycle-include-plain-lists nil)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clock
 
-(setq org-clock-into-drawer t)
+;; (setq org-clock-into-drawer t)
+;; (setq org-clock-idle-time nil)
 
-(setq org-clock-idle-time nil)
+;; (setq org-clock-continuously nil)
+;; (setq org-clock-persist t) ;; Persist clock data
+;; (setq org-clock-in-switch-to-state "STARTED")
+;; (setq org-clock-in-resume t) ;;Resume persisted clock when loading emacs
+
+;; (setq org-show-notification-handler 'message)
+;; (setq org-clock-report-include-clocking-task t)
+;; (setq org-clock-out-remove-zero-time-clocks t)
+;; (setq org-clock-out-when-done t)
 
 ;; Copied from https://github.com/aaronbieber/dotfiles/blob/master/configs/emacs.d/lisp/init-org.el
-(setq org-log-into-drawer "LOGBOOK")
-(setq org-log-done (quote time))
-(setq org-log-redeadline (quote time))
-(setq org-log-reschedule (quote time))
-
-(setq org-ellipsis " …")
-(setq org-ellipsis " \u25bc")
-
-(setq org-clock-continuously nil)
-(setq org-clock-persist t) ;; Persist clock data
-(setq org-clock-in-switch-to-state "STARTED")
-(setq org-clock-in-resume t) ;;Resume persisted clock when loading emacs
-
-(setq org-show-notification-handler 'message)
-(setq org-clock-report-include-clocking-task t)
-(setq org-clock-out-remove-zero-time-clocks t)
-(setq org-clock-out-when-done t)
+;; (setq org-log-into-drawer "LOGBOOK")
+;; (setq org-log-done (quote time))
+;; (setq org-log-redeadline (quote time))
+;; (setq org-log-reschedule (quote time))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

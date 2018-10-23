@@ -74,6 +74,11 @@
 (when prelude-theme
   (load-theme prelude-theme t))
 
+;; use smart mode line
+(setq sml/no-confirm-load-theme t)
+(setq sml/theme 'light)
+(sml/setup)
+
 ;; show the cursor when moving after big movements in the window
 (require 'beacon)
 (beacon-mode +1)

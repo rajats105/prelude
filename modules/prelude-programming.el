@@ -32,6 +32,12 @@
 
 ;;; Code:
 
+(prelude-require-packages '(highlight-symbol indent-guide))
+
+(dolist (value '(highlight-symbol-mode
+                 indent-guide-mode))
+  (add-to-list 'prelude-diminish-list value))
+
 (defun prelude-local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t))
 
@@ -70,12 +76,20 @@
     (guru-mode +1))
   (smartparens-mode +1)
   (prelude-enable-whitespace)
-  (prelude-local-comment-auto-fill))
+  (prelude-local-comment-auto-fill)
+  (highlight-symbol-mode +1)
+  (highlight-symbol-nav-mode +1)
+  (indent-guide-mode +1))
 
 (setq prelude-prog-mode-hook 'prelude-prog-mode-defaults)
 
 (add-hook 'prog-mode-hook (lambda ()
                             (run-hooks 'prelude-prog-mode-hook)))
+
+
+(add-hook 'after-change-major-mode-hook
+          (lambda() (dolist (value prelude-diminish-list)
+                      (diminish value))))
 
 ;; enable on-the-fly syntax checking
 (if (fboundp 'global-flycheck-mode)

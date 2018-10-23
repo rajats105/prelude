@@ -92,12 +92,10 @@ Start `ielm' if it's not already running."
 (add-hook 'ielm-mode-hook (lambda ()
                             (run-hooks 'prelude-ielm-mode-hook)))
 
-(with-eval-after-load "elisp-slime-nav"
-  (diminish 'elisp-slime-nav-mode))
-(with-eval-after-load "rainbow-mode"
-  (diminish 'rainbow-mode))
-(with-eval-after-load "eldoc"
-  (diminish 'eldoc-mode))
+(dolist (value '(elisp-slime-nav-mode
+                 rainbow-mode
+                 eldoc-mode))
+  (add-to-list 'prelude-diminish-list value))
 
 (with-eval-after-load "ielm"
   (define-key ielm-map (kbd "M-(") (prelude-wrap-with "("))

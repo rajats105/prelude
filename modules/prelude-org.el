@@ -32,10 +32,14 @@
 
 ;;; Code:
 
-(add-to-list 'auto-mode-alist '("\\.org\\’" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
+
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cc" 'org-capture)
+
+(setq org-ellipsis " \u25bc")
 (setq org-log-done t)
 
 (defun prelude-org-mode-defaults ()

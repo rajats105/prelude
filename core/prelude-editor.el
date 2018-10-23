@@ -42,8 +42,9 @@
 ;; indentation width -- eg. c-basic-offset: use that to adjust your
 ;; personal indentation width, while maintaining the style (and
 ;; meaning) of any files you load.
+(setq-default standard-indent 4)
 (setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
-(setq-default tab-width 8)            ;; but maintain correct appearance
+(setq-default tab-width 4)            ;; but maintain correct appearance
 
 ;; Newline at end of file
 (setq require-final-newline t)
@@ -167,7 +168,7 @@
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
-(diminish 'volatile-highlights-mode)
+(add-to-list 'prelude-diminish-list 'volatile-highlights-mode)
 
 ;; note - this should be after volatile-highlights is required
 ;; add the ability to cut the current line, without marking it
@@ -201,6 +202,8 @@
   (when prelude-whitespace
     ;; keep the whitespace decent all the time (in this buffer)
     (add-hook 'before-save-hook 'prelude-cleanup-maybe nil t)
+    (add-to-list 'prelude-diminish-list 'whitespace-mode)
+    (setq whitespace-style '(face tabs newline trailing empty))
     (whitespace-mode +1)))
 
 (add-hook 'text-mode-hook 'prelude-enable-flyspell)
@@ -237,7 +240,7 @@
 
 ;; anzu-mode enhances isearch & query-replace by showing total matches and current match position
 (require 'anzu)
-(diminish 'anzu-mode)
+(add-to-list 'prelude-diminish-list 'anzu-mode)
 (global-anzu-mode)
 
 (global-set-key (kbd "M-%") 'anzu-query-replace)
@@ -364,7 +367,7 @@ indent yanked text (with prefix arg don't indent)."
 
 ;; sensible undo
 (global-undo-tree-mode)
-(diminish 'undo-tree-mode)
+(add-to-list 'prelude-diminish-list 'undo-tree-mode)
 
 ;; enable winner-mode to manage window configurations
 (winner-mode +1)
@@ -417,6 +420,7 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
 ;; use settings from .editorconfig file when present
 (require 'editorconfig)
 (editorconfig-mode 1)
+(add-to-list 'prelude-diminish-list 'editorconfig-mode)
 
 (provide 'prelude-editor)
 

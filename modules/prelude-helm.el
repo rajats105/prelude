@@ -38,6 +38,8 @@
 (require 'helm-config)
 (require 'helm-projectile)
 
+(add-to-list 'prelude-diminish-list 'helm-mode)
+
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
 

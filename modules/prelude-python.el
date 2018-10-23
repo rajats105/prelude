@@ -35,6 +35,11 @@
 
 (prelude-require-package 'anaconda-mode)
 
+(eval-after-load 'anaconda-mode
+  '(progn
+     (define-key anaconda-mode-map (kbd "M-,") 'anaconda-mode-go-back)
+     (define-key anaconda-mode-map (kbd "M-/") 'anaconda-mode-find-assignments)))
+
 (when (boundp 'company-backends)
   (prelude-require-package 'company-anaconda)
   (add-to-list 'company-backends 'company-anaconda))
@@ -89,6 +94,8 @@
   (subword-mode +1)
   (anaconda-mode 1)
   (eldoc-mode 1)
+  (anaconda-eldoc-mode 1)
+  (flycheck-add-next-checker 'python-flake8 'python-pylint)
   (setq-local electric-layout-rules
               '((?: . (lambda ()
                         (and (zerop (first (syntax-ppss)))
@@ -102,9 +109,7 @@
   (add-hook 'after-save-hook 'prelude-python-mode-set-encoding nil 'local))
 
 (setq prelude-python-mode-hook 'prelude-python-mode-defaults)
-
-(add-hook 'python-mode-hook (lambda ()
-                              (run-hooks 'prelude-python-mode-hook)))
+(add-hook 'python-mode-hook (lambda () (run-hooks 'prelude-python-mode-hook)))
 
 (provide 'prelude-python)
 
