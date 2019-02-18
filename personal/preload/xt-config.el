@@ -29,9 +29,9 @@
 ;; choose your own fonts, in a system dependant way
 (if (string-match "apple-darwin" system-configuration)
     (progn
-      (set-face-font 'default "Source Code Pro-13")
-      (set-frame-font "Source Code Pro-13" nil t)
-      (add-to-list 'default-frame-alist '(font . "Source Code Pro-13")))
+      (set-face-font 'default "Source Code Pro-12")
+      (set-frame-font "Source Code Pro-12" nil t)
+      (add-to-list 'default-frame-alist '(font . "Source Code Pro-12")))
   (progn
     (set-face-font 'default "Source Code Pro-11")
     (set-frame-font "Source Code Pro-11" nil t)
