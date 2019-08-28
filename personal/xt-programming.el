@@ -13,4 +13,7 @@
 (global-set-key (kbd "M-c") #'aya-create)
 (global-set-key (kbd "M-y") #'aya-expand)
 
+(prelude-require-package 'apples-mode)
+(add-to-list 'auto-mode-alist '("\\.\\(applescri\\|sc\\)pt\\'" . apples-mode))
+
 (provide 'xt-programming)
