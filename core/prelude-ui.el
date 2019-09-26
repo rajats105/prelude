@@ -76,7 +76,7 @@
 
 ;; use smart mode line
 (setq sml/no-confirm-load-theme t)
-(setq sml/theme 'light)
+(setq sml/theme 'respectful)
 (sml/setup)
 
 ;; show the cursor when moving after big movements in the window
