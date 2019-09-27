@@ -50,7 +50,7 @@
     ("zenburn-red"      . "#ff5f5f")
     ("zenburn-red+1"    . "#ff8787")
     ("zenburn-red+2"    . "#ff8787")
-    ("zenburn-orange"   . "#00af00")
+    ("zenburn-orange"   . "#d78700")
     ;; ("zenburn-yellow-2" . "#af8700")
     ;; ("zenburn-yellow-1" . "#d7af00")
     ;; ("zenburn-yellow"   . "#ffd700")
