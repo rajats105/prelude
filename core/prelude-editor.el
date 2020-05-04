@@ -164,7 +164,7 @@
     (with-current-buffer buffer (if mode (funcall mode)))))
 
 ;; highlight the current line
-(global-hl-line-mode +1)
+(if (display-graphic-p) (global-hl-line-mode +1) (global-hl-line-mode -1))
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)

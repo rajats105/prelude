@@ -22,9 +22,9 @@
 (while custom-enabled-themes
   (disable-theme (car custom-enabled-themes)))
 
-;; (disable-theme 'zenburn)
-
-(setq prelude-theme 'zenburn)
+(if (display-graphic-p)
+    (setq prelude-theme 'zenburn)
+  (disable-theme 'zenburn))
 
 (setq zenburn-override-colors-alist
   '(("zenburn-fg-1"     . "#767676")
